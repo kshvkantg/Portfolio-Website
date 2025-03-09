@@ -13,6 +13,24 @@ app.use(views(path.join(__dirname, 'views'), { extension: 'pug' }));
 app.use(bodyParser());
 app.use(serve(path.join(__dirname, 'public')));
 
+app.use(async (ctx,next) => {
+  await next()
+  const responseTime = ctx.response.get('X-Response-Time');
+  console.log( '--------------------------' + `\n` 
+    + `request method - ${ctx.method} ` + `\n` 
+    + `request url - ${ctx.URL} `+ `\n` 
+    + `response time - ${responseTime}` + `\n`
+    +'------------------')
+})
+
+app.use(async (ctx,next) => {
+  const start = Date.now();
+  await next()
+  const timeInMilliSecs = Date.now() - start
+  ctx.set('X-Response-Time',`${timeInMilliSecs}ms`)
+})
+
+
 // Routes
 router.get('/', async (ctx) => {
   await ctx.render('home.pug', { title: 'My Portfolio', message: 'Welcome to my website' });
@@ -30,4 +48,4 @@ router.get('/', async (ctx) => {
 
 app.use(router.routes()).use(router.allowedMethods());
 
-app.listen(3030, () => console.log('Server running on http://localhost:3030'));
+app.listen(2000, () => console.log('Server running on http://localhost:3030'));
