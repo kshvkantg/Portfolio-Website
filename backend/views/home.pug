@@ -5,10 +5,13 @@ html(lang='en')
     meta(charset='utf-8')
     title Portfolio 
     link(rel="stylesheet", href="style.css")
+    link(rel="stylesheet", href="contact-pop.css")
     link(rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" )
-    script(src="/js/script.js") 
+    script(defer src="script.js")
   body
-     
+    
+    include contactUsForm.pug
+
     div.topbar
       a(href="").action-btn Portfolio
       button.action-btn Create 
@@ -32,29 +35,19 @@ html(lang='en')
 
         div.socials-container 
           div.social-icons 
-            a(href="").icons 
-              img(src="github.svg"  alt="alt")
-            a(href="").icons 
-              img(src="gmail.svg"  alt="alt")
-            a(href="").icons 
-              img(src="instagram.svg"  alt="alt")
-            a(href="").icons 
-              img(src="linkedin.png"  alt="alt")
+            - const mediaLinks = { "github.svg" : "github", "gmail.svg" : "gmail" , "instagram.svg" : "instagram", "linkedin.png" : "linkedin", }
+              each mediaValue, altValue in mediaLinks
+                a(href="").icons 
+                  img(src= `${mediaValue}`  alt=altValue)
+
         div.buttons
-          button.contact Contact Me 
+          button.contact(data-modal-target="#modal1") Contact Me 
           button.resume Resume
 
       div.illustration
         img(src="illustration.png", alt="Illustration")
-
-
-
-  
-    
-  
-  
-
-
+      
+      +contactUsForm("modal1", "Contact Me", "This is the content for the first modal.")
 
 
 

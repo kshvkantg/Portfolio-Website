@@ -2,13 +2,13 @@ body {
     font-family: Arial, sans-serif;
     background-color: #fff;
     color: #333;
-    height: 100vh; 
+    height: 100vh;
     flex-direction: column;
 }
 
 .topbar {
-    height: 5vh;
-    width: 97%;
+    height: 7vh;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -38,7 +38,7 @@ body {
     flex: 1;
     display: flex;
     align-items: center;
-    justify-content: space-between; 
+    justify-content: space-between;
     padding: 20px;
     height: 80vh;
 }
@@ -54,8 +54,15 @@ h1 {
 }
 
 @keyframes wave {
-    0%, 100% { transform: rotate(0deg); }
-    50% { transform: rotate(20deg); }
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(20deg);
+    }
 }
 
 p {
@@ -100,5 +107,8 @@ p {
     margin-left: auto;
     margin-right: auto;
     width: 500px;
+    margin-top: 20%;
+    margin-bottom: 20%;
+    height: 590px;
     flex-basis: 30%;
 }
