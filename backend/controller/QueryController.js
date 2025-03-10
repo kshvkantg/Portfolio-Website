@@ -4,12 +4,10 @@ const getAllItems = async (ctx) => {
     try {
         const items = await Item.find();
 
-        ctx.status = 200;
-        ctx.body = {
-            code: `${ctx.status}`,
-            message: 'Items fetched successfully',
-            items
-        };
+        await ctx.render('query-card.pug', {
+            cards: items, // Use filtered or all cards
+            title: "Card Grid View",
+        });
     } catch (error) {
         console.error(error.message);
         ctx.status = 500;

@@ -1,39 +1,26 @@
 doctype html
 html
     head
-        title Card Grid View
-        script( src="https://cdn.tailwindcss.com")
-        script(src="https://unpkg.com/alpinejs@3.12.0/dist/cdn.min.js")
-    body(x-data="cardGrid")
-        mixin cardView(card)
-            .bg-white.shadow-md.rounded-lg.p-6
-                h2.text-lg.font-semibold.mb-2 {{ card.title }}
-                p.text-gray-600.mb-4 {{ card.description }}
-                p.text-sm.text-gray-400.mb-4 Updated {{ card.updated_at }}
-
+        title= title
+        script(src="https://cdn.tailwindcss.com")
+    body
         .min-h-screen.bg-gray-100.p-6
             .max-w-4xl.mx-auto
-                h1.text-2xl.font-bold.mb-4.text-center Card Grid View
+                h1.text-2xl.font-bold.mb-4.text-center= title
 
-                input.w-full.p-2.border.rounded.mb-6(placeholder="Search..." @input="searchQuery = $event.target.value")
-                p(x-data="cardGrid")
-                .grid(class="grid grid-cols-3 gap-4 p-5" x-data="cardGrid")
-                    template(x-for="card in cards" :key="card")
-                        +cardView(card)
+                form(method="get" action="/api/cards" class="flex items-center space-x-4 mb-6")
+                    input.flex-grow.p-2.border.rounded(
+                        type="text"
+                        name="search"
+                        placeholder="Search..."
+                        value=searchQuery
+                    )
+                    button.bg-blue-500.text-white.p-2.rounded(type="submit") Search
 
-        script.
-            document.addEventListener('alpine:init', () => {
-                Alpine.data('cardGrid', () => ({
-                    searchQuery: '',
-                    cards: [
-                        { title: "Organic candies", description: "Candies with clean organic sweeteners, and flavors from actual fruit. Single ingredient gummies: ashwagandha, apple cider vinegar, elderberry, and turmeric.", updated_at: "2 hours ago", categories: ["Food", "Desserts", "Organic", "Bio", "Vegan", "Gluten free"], website: "#" },
-                        { title: "Healthy Snacks", description: "Delicious and nutritious snacks with no preservatives.", updated_at: "5 hours ago", categories: ["Snacks", "Vegan", "Organic"], website: "#" }
-                    ],
-                    get filteredCards() {
-                        return this.cards.filter(card =>
-                            card.title.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-                            card.categories.some(cat => cat.toLowerCase().includes(this.searchQuery.toLowerCase()))
-                        );
-                    }
-                }));
-            });
+
+                .grid(class="grid grid-cols-3 gap-4")
+                    each card in cards
+                        .bg-white.shadow-md.rounded-lg.p-6
+                            h2.text-lg.font-semibold.mb-2= card.subject
+                            p.text-gray-600.mb-4= card.message
+                            p.text-gray-600.mb-4= `${card.full_name} ${card.contact}`

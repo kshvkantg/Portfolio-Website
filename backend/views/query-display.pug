@@ -1,0 +1,28 @@
+doctype html
+html
+    head
+        title Search & View Toggle
+        script(src="https://cdn.tailwindcss.com" defer=)
+        script(src="https://unpkg.com/alpinejs" defer)
+    body
+        .container.mx-auto.p-6(x-data="{ search: '', view: 'grid', results: [] }", @input.debounce.500="fetchResults")
+            .mb-4
+                input.border.p-2.rounded.w-full(type="text" placeholder="Search..." x-model="search")
+            .mb-4
+                button.px-4.py-2.bg-blue-500.text-white.rounded(@click="view = 'grid'") Grid View
+                button.px-4.py-2.bg-gray-500.text-white.rounded.ml-2(@click="view = 'list'") List View
+            .results
+                template(x-if="view === 'grid'")
+                    .grid.grid-cols-3.gap-4
+                        template(x-for="item in results" :key="item.id")
+                            .p-4.border.rounded.bg-gray-100.text-center(x-text="item.name")
+                template(x-if="view === 'list'")
+                    .flex.flex-col.gap-2
+                        template(x-for="item in results" :key="item.id")
+                            .p-2.border.rounded.bg-gray-100.text-left(x-text="item.name")
+        script.
+            function fetchResults() {
+                fetch(`/search?q=${this.search}`)
+                    .then(response => response.json())
+                    .then(data => this.results = data);
+            }
