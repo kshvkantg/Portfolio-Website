@@ -7,29 +7,27 @@ mixin contactUsForm(id, title, content)
       button.close-button(data-close-button) &times;
     div.modal-body
 
-      form(x-data="contactForm" @submit.prevent="getBaseUrl")
+      .bg-white.shadow-md.rounded-lg.p-6.max-w-md.w-full
+        h2.text-2xl.font-bold.mb-4.text-center Contact Us
 
-        p(x-text="subject.value")
-        div.form-field
-          label.form-label(for="fullName")
-            span Name:
-            input#fullName.form-input(type="text" x-model="fullName" required placeholder="Mr./Ms.")
+        form#contactForm(class="space-y-4")
+          .form-group
+            label(for="name" class="block text-sm font-medium text-gray-700") Name
+            input#name(type="text" name="name" required class="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500")
+          .form-group
+            label(for="contact" class="block text-sm font-medium text-gray-700") Contact
+            input#contact(type="text" name="contact" required class="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500")
 
-        div.form-field
-          label.form-label(for="contact")
-            span Contact:
-            input#contact.form-input(type="text" x-model="contact" required placeholder="Phone Number")
+          .form-group
+            label(for="subject" class="block text-sm font-medium text-gray-700") Subject
+            input#subject(type="text" name="subject" required class="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500")
 
-        div.form-field
-          label.form-label(for="subject")
-            span Subject:
-            input#subject.form-input(type="text" x-model="subject" required placeholder="Subject")
+          .form-group
+            label(for="message" class="block text-sm font-medium text-gray-700") Message
+            textarea#message(name="message" rows="4" required class="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500")
 
-        div.form-field
-          label.form-label(for="message")
-            span Message:
-            textarea#message.form-input(placeholder="Type your message here..." rows="4" cols="50" x-model="message" required)
+          button(type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition") Submit
 
-        div.form-action
-          button.submit-btn(type="submit" :disabled="isLoading" x-text="isLoading ? 'Sending...' : 'Submit'") Submit
+        div#responseMessage(class="text-center mt-4 text-sm font-medium hidden")
+
   div#overlay

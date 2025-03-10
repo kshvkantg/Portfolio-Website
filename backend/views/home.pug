@@ -5,11 +5,13 @@ html(lang='en')
     title Portfolio 
     link(rel="stylesheet", href="style.css")
     link(rel="stylesheet", href="contact-pop.css")
+    script(src="https://cdn.tailwindcss.com")
     link(rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" )
     script(defer src="script.js")
+    script(defer src="form-submission-script.js")
   body
     
-    include contactUsForm.pug
+    include contact-pop-mixin.pug
 
     div.topbar
       a(href="").action-btn Portfolio
@@ -32,21 +34,22 @@ html(lang='en')
 
         
 
-        div.socials-container 
-          div.social-icons 
-            - const mediaLinks = { "github.svg" : "github", "gmail.svg" : "gmail" , "instagram.svg" : "instagram", "linkedin.png" : "linkedin", }
-              each mediaValue, altValue in mediaLinks
-                a(href="").icons 
-                  img(src= `${mediaValue}`  alt=altValue)
+        //div.socials-container
+        //  div.social-icons
+        //    - const mediaLinks = { "github.svg" : "github", "gmail.svg" : "gmail" , "instagram.svg" : "instagram", "linkedin.png" : "linkedin", }
+        //      each mediaValue, altValue in mediaLinks
+        //        a(href="").icons
+        //          img(src= `${mediaValue}`  alt=altValue)
 
         div.buttons
-          button.contact(data-modal-target="#modal1") Contact Me 
+          button.contact(id="openPopup") Contact Me
           button.resume Resume
 
       div.illustration
         img(src="illustration.png", alt="Illustration")
-      
-      +contactUsForm("modal1", "Contact Me", "This is the content for the first modal.")
+
+      +contactForm()
+      //+contactUsForm("modal1", "Contact Me", "This is the content for the first modal.")
 
 
 

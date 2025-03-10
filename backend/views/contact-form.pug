@@ -1,0 +1,74 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        title Contact Form
+        script(src="https://cdn.tailwindcss.com")
+    body(class="bg-gray-100 flex justify-center items-center min-h-screen")
+
+        .bg-white.shadow-md.rounded-lg.p-6.max-w-md.w-full
+            h2.text-2xl.font-bold.mb-4.text-center Contact Us
+
+            form#contactForm(class="space-y-4")
+                .form-group
+                    label(for="name" class="block text-sm font-medium text-gray-700") Name
+                    input#name(type="text" name="name" required class="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500")
+                .form-group
+                    label(for="contact" class="block text-sm font-medium text-gray-700") Contact
+                    input#contact(type="text" name="contact" required class="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500")
+
+                .form-group
+                    label(for="subject" class="block text-sm font-medium text-gray-700") Subject
+                    input#subject(type="text" name="subject" required class="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500")
+
+                .form-group
+                    label(for="message" class="block text-sm font-medium text-gray-700") Message
+                    textarea#message(name="message" rows="4" required class="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500")
+
+                button(type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition") Submit
+
+            div#responseMessage(class="text-center mt-4 text-sm font-medium hidden")
+
+        script.
+            document.addEventListener('DOMContentLoaded', () => {
+                const contactForm = document.getElementById('contactForm');
+                const responseMessage = document.getElementById('responseMessage');
+
+                contactForm.addEventListener('submit', async (event) => {
+                    event.preventDefault();
+
+                    const formData = {
+                        name: document.getElementById('name').value,
+                        contact: document.getElementById('contact').value,
+                        subject: document.getElementById('subject').value,
+                        message: document.getElementById('message').value,
+                    };
+
+                    try {
+                        const response = await fetch('YOUR_API_ENDPOINT', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(formData),
+                        });
+
+                        const result = await response.json();
+
+                        if (response.ok) {
+                            responseMessage.textContent = 'Your message has been sent successfully!';
+                            responseMessage.className = 'text-center mt-4 text-sm font-medium text-green-600';
+                        } else {
+                            responseMessage.textContent = `Error: ${result.message || 'Failed to send your message.'}`;
+                            responseMessage.className = 'text-center mt-4 text-sm font-medium text-red-600';
+                        }
+                    } catch (error) {
+                        responseMessage.textContent = 'Network error: Unable to send your message.';
+                        responseMessage.className = 'text-center mt-4 text-sm font-medium text-red-600';
+                    }
+
+                    responseMessage.classList.remove('hidden');
+                    contactForm.reset(); // Reset the form after successful submission
+                });
+            });
