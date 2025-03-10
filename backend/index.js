@@ -20,7 +20,6 @@ dotenv.config()
 app.use(views(path.join(__dirname, 'views'), { extension: 'pug' }));
 app.use(bodyParser());
 app.use(serve(path.join(__dirname, 'public')));
-app.use(serve(path.join(__dirname, 'pdf-files')));
 
 
 app.use(async (ctx, next) => {

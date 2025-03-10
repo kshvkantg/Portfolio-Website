@@ -2,55 +2,57 @@ doctype
 html(lang='en')
   head
     meta(charset='utf-8')
-    title Portfolio 
-    link(rel="stylesheet", href="style.css")
-    link(rel="stylesheet", href="contact-pop.css")
+    title Portfolio
     script(src="https://cdn.tailwindcss.com")
-    link(rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" )
-    script(defer src="script.js")
-    script(defer src="form-submission-script.js")
-  body
-    
-    include contact-pop-mixin.pug
+    link(rel="stylesheet", href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap")
 
-    div.topbar
-      a(href="").action-btn Portfolio
-      button.action-btn Create 
-    
-    div.web-body 
-      div.content 
-        h1 Hey there, awesome people!, I'm Keshav 👋
-        p I'm a passionate Full Stack Software Developer 🚀 who loves turning ideas into reality through Web and Mobile applications. 
-          | Whether it's crafting sleek user interfaces or building powerful backends, I enjoy every bit of the process. 
+  body(class="bg-gray-100 font-sans text-gray-800")
+
+    script(src="/js/form-submission-script.js")
+    script(src="/js/routin-server.js")
+
+    include contact-pop-mixin
+    div.topbar(class="flex justify-between items-center bg-gray-900 text-white py-4 px-6 shadow-md")
+      a(href="").action-btn(class="text-lg font-semibold hover:text-gray-300") Portfolio
+      button#adminPanel(class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition") Create
+
+    div.web-body(class="container h-auto md:h-screen mx-auto px-8 py-0 grid grid-cols-1 md:grid-cols-[3fr_1fr] gap-8")
+
+      div.content(class="flex flex-col justify-center bg-transparent")
+        h1(class="text-4xl font-extrabold text-gray-900 leading-tight") Hey there, awesome people! I'm Keshav 👋
+
+        p(class="text-gray-700 text-base leading-relaxed my-4")
+          | I'm a passionate Full Stack Software Developer 🚀 who loves turning ideas into reality through Web and Mobile applications.
+          | Whether it's crafting sleek user interfaces or building powerful backends, I enjoy every bit of the process.
           | But hey, tech is just one part of the story!
 
-        p Beyond the code, I love learning new things, exploring new places, and embracing new challenges. 
-          | I’m always up for meeting amazing people, exchanging ideas, and gaining fresh perspectives. 
-          | Whether it’s sharing ideas, discussing creative solutions, or simply having a great conversation, 
+        p(class="text-gray-700 text-base leading-relaxed my-0")
+          | Beyond the code, I love learning new things, exploring new places, and embracing new challenges.
+          | I’m always up for meeting amazing people, exchanging ideas, and gaining fresh perspectives.
+          | Whether it’s sharing ideas, discussing creative solutions, or simply having a great conversation,
           | I believe every interaction brings something valuable.
 
-        p I’m super excited to connect with all of you, collaborate on exciting projects, and create something impactful together! 
+        p(class="text-gray-700 text-base leading-relaxed my-4")
+          | I’m super excited to connect with all of you, collaborate on exciting projects, and create something impactful together!
           | Let’s build, learn, and grow! 🚀
 
-        
+        div.buttons(class="flex space-x-4 pt-4")
+          a(href="")
+            img(src="gmail.svg" alt="Illustration" class="w-8 h-8 object-cover")
+          a(href="")
+            img(src="linkedin.png" alt="Illustration" class="w-8 h-8 object-cover")
+          a(href="")
+            img(src="github.svg" alt="Illustration" class="w-8 h-8 object-cover")
+          a(href="")
+            img(src="instagram.svg" alt="Illustration" class="w-8 h-8 object-cover")
 
-        //div.socials-container
-        //  div.social-icons
-        //    - const mediaLinks = { "github.svg" : "github", "gmail.svg" : "gmail" , "instagram.svg" : "instagram", "linkedin.png" : "linkedin", }
-        //      each mediaValue, altValue in mediaLinks
-        //        a(href="").icons
-        //          img(src= `${mediaValue}`  alt=altValue)
+        div.buttons(class="flex space-x-4 pt-4")
+          button#openPopupBtn(class="bg-blue-500 text-white font-medium px-6 py-2 rounded-md hover:bg-blue-600 transition") Contact Me
+          button#resumeButton(class="bg-gray-200 text-gray-800 font-medium px-6 py-2 rounded-md hover:bg-gray-300 transition") Resume
 
-        div.buttons
-          button.contact(id="openPopup") Contact Me
-          button.resume Resume
-
-      div.illustration
-        img(src="illustration.png", alt="Illustration")
-
-      +contactForm()
-      //+contactUsForm("modal1", "Contact Me", "This is the content for the first modal.")
+      div.illustration(class="flex justify-center items-center bg-transparent")
+        img(src="illustration.png" alt="Illustration" class="max-w-full md:max-w-sm")
 
 
-
+    +popContactForm()
 

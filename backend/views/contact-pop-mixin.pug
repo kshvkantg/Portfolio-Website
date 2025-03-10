@@ -1,10 +1,10 @@
-mixin contactForm()
-    .fixed.inset-0.bg-black.bg-opacity-50.flex.justify-center.items-center.hidden#formOverlay
+mixin popContactForm()
+    div#popup(class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50")
         .bg-white.shadow-md.rounded-lg.p-6.max-w-md.w-full.relative
-            button(type="button" id="closePopup" class="absolute top-2 right-2 text-gray-500 hover:text-gray-800")
-                X
+            button(type="button" id="closePopup" class="absolute top-2 right-2 text-gray-500 hover:text-gray-800") ✖
 
             h2.text-2xl.font-bold.mb-4.text-center Contact Us
+
             form#contactForm(class="space-y-4")
                 .form-group
                     label(for="name" class="block text-sm font-medium text-gray-700") Name
@@ -20,11 +20,13 @@ mixin contactForm()
 
                 .form-group
                     label(for="message" class="block text-sm font-medium text-gray-700") Message
-                    textarea#message(name="message" rows="4" required class="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500")
+                    textarea#message(name="message" rows="4" required class="w-full mt-1 p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 flex items-center justify-center space-x-2")
 
-                button(type="submit" id="submitButton" class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition relative")
+                button#submitButton(type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition flex items-center justify-center space-x-2")
                     span#buttonText Submit
-                    span#loadingSpinner(class="hidden absolute inset-0 flex justify-center items-center")
+                    span#loadingSpinner(class="hidden flex items-center justify-center")
                         div(class="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full")
 
+
                 div#submitError(class="text-red-500 text-center mt-2 hidden")
+
