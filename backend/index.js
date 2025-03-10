@@ -3,12 +3,18 @@ const Router = require('koa-router');
 const bodyParser = require('koa-bodyparser');
 const serve = require('koa-static');
 const views = require('koa-views');
+
+
 const path = require('path');
+const dotenv = require('dotenv')
+
+const connectToDatabase = require('./database/mongo_connection');
 
 const app = new Koa();
 const router = new Router();
 
-// Set up Pug as the templating engine
+dotenv.config()
+
 app.use(views(path.join(__dirname, 'views'), { extension: 'pug' }));
 app.use(bodyParser());
 app.use(serve(path.join(__dirname, 'public')));
@@ -16,11 +22,11 @@ app.use(serve(path.join(__dirname, 'public')));
 app.use(async (ctx, next) => {
   await next()
   const responseTime = ctx.response.get('X-Response-Time');
-  console.log('--------------------------' + `\n`
-    + `request method - ${ctx.method} ` + `\n`
-    + `request url - ${ctx.URL} ` + `\n`
-    + `response time - ${responseTime}` + `\n`
-    + '------------------')
+     console.log('--------------------------' + `\n`
+     + `request method - ${ctx.method} ` + `\n`
+     + `request url - ${ctx.URL} ` + `\n`
+     + `response time - ${responseTime}` + `\n`
+     + '------------------')
 })
 
 app.use(async (ctx, next) => {
@@ -48,4 +54,19 @@ router.get('/', async (ctx) => {
 
 app.use(router.routes()).use(router.allowedMethods());
 
-app.listen(2000, () => console.log('Server running on http://localhost:2000'));
+const PORT = process.env.PORT || 3000;
+const BASE_URL = process.env.BASE_URL || `http://localhost:${PORT}`;
+
+startServer()
+
+async function startServer() {
+  try {
+    await connectToDatabase();
+
+    app.listen(PORT, () => console.log(`Server running on ${BASE_URL} started at ${new Date()}`));
+  } catch (error) {
+    console.error(error);
+    process.exit(1);
+  }
+}
+

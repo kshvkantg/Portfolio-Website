@@ -1,24 +1,35 @@
 mixin contactUsForm(id, title, content)
+  script(src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer)
+  script(defer src="form-submission-script.js")
   div.modal(id=id)
     div.modal-header
       div.title= title
       button.close-button(data-close-button) &times;
     div.modal-body
-      form(x-on:submit.prevent="isLoading = true; fetch('/contact-request', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ fullName, contact, subject, message }) }).then(() => { isLoading = false; showPopup = false; fullName = ''; contact = ''; subject = ''; message = ''; })")
 
-        label.form-label(for="fullName") Name
-        input.form-input(type="text" id="fullName" x-model="fullName" required placeholder="Mr./Ms.")
+      form(x-data="contactForm" @submit.prevent="getBaseUrl")
 
-        label.form-label(for="contact") Contact
-        input.form-input(type="text" id="contact" x-model="contact" required placeholder="Phone Number")
+        p(x-text="subject.value")
+        div.form-field
+          label.form-label(for="fullName")
+            span Name:
+            input#fullName.form-input(type="text" x-model="fullName" required placeholder="Mr./Ms.")
 
-        label.form-label(for="subject") Subject
-        input.form-input(type="text" id="subject" placeholder="Subject" x-model="subject" required)
+        div.form-field
+          label.form-label(for="contact")
+            span Contact:
+            input#contact.form-input(type="text" x-model="contact" required placeholder="Phone Number")
 
-        label.form-label(for="message") Message
-        textarea.form-input(id="message" name="message" placeholder="Type your message here..." rows="4" cols="50" x-model="message" required)
+        div.form-field
+          label.form-label(for="subject")
+            span Subject:
+            input#subject.form-input(type="text" x-model="subject" required placeholder="Subject")
 
-        button.submit-btn(type="submit" x-bind:disabled="isLoading") 
-          span(x-show="!isLoading") Send
+        div.form-field
+          label.form-label(for="message")
+            span Message:
+            textarea#message.form-input(placeholder="Type your message here..." rows="4" cols="50" x-model="message" required)
 
+        div.form-action
+          button.submit-btn(type="submit" :disabled="isLoading" x-text="isLoading ? 'Sending...' : 'Submit'") Submit
   div#overlay
