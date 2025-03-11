@@ -1,3 +1,3 @@
 export const config = {
-    FRONT_APP_BASE_URL : `http://localhost:3000`
+    FRONT_APP_BASE_URL : `https://portfolio-website-ayy4.onrender.com`
 }
