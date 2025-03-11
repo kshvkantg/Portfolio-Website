@@ -1,13 +1,18 @@
+// this controller contains 2 function
+
+/*---- getAllQueries helps to get a list of queries stored in the db,
+ on the basis of search parameter,  on empty search it renders a complete list*/
+
 const Item = require('../database/model/UserQueryModel');
 
-const getAllItems = async (ctx) => {
+const getAllQueries = async (ctx) => {
     try {
         const { search } = ctx.request.query;
         const query = search ? { subject: { $regex: search, $options: "i" } } : {};
         const items = await Item.find(query);
 
         await ctx.render('query-card.pug', {
-            cards: items, // Use filtered or all cards
+            cards: items,
             title: "Card Grid View",
         });
     } catch (error) {
@@ -21,8 +26,9 @@ const getAllItems = async (ctx) => {
     }
 };
 
-// Create a new item
-const createItem = async (ctx) => {
+/*---- createANewQuery runs a validation check and save query to the
+       db upon a valid request, it's a  json based api*/
+const createANewQuery = async (ctx) => {
     try {
         const { full_name, contact, subject, message } = ctx.request.body;
 
@@ -61,6 +67,6 @@ const createItem = async (ctx) => {
 };
 
 module.exports = {
-    getAllItems,
-    createItem,
+    getAllQueries,
+    createANewQuery,
 };

@@ -1,4 +1,4 @@
-
+// controllers to render different pages
 const renderIndexController = async (ctx) => {
     await ctx.render('home.pug', { title: 'My Portfolio', message: 'Welcome to my website' });
 };

@@ -6,13 +6,16 @@ const {passport} = require('../Authentication/passport');
 
 const router = new Router();
 
+//Query page route
 router.get('/api/query', getAllItems);
 router.post('/api/query', createItem);
-router.get('/api/pdf', getResume);
-
-
-router.get('/', renderIndexController);
 router.get('/query', renderQueryController);
+
+
+//resume downloading route
+router.get('/api/pdf', getResume);
+router.get('/', renderIndexController);
+
 
 //passport routes
 

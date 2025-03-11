@@ -7,7 +7,6 @@ const views = require('koa-views');
 
 const path = require('path');
 const dotenv = require('dotenv')
-const fs = require('fs')
 
 const queryRouter = require('./Router/app-router')
 
@@ -23,6 +22,7 @@ app.use(bodyParser());
 app.use(serve(path.join(__dirname, 'public')));
 
 
+// request logging mechanism -=-=-==-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-==-=-=-=-=
 app.use(async (ctx, next) => {
   await next()
   const responseTime = ctx.response.get('X-Response-Time');
@@ -41,6 +41,9 @@ app.use(async (ctx, next) => {
   ctx.set('X-Response-Time', `${timeInMilliSecs}ms`)
 })
 
+//-=-=-==-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=-=-=-==-=-=-=-=-=-=
+
+
 app.use(queryRouter.routes()).use(queryRouter.allowedMethods());
 
 //handel 404 and 500 code renders
@@ -50,7 +53,7 @@ app.use(renderWentWrongController)
 const PORT = process.env.PORT || 3000;
 const BASE_URL = process.env.BASE_URL || `http://localhost:${PORT}`;
 
-startServer()
+startServer().then(r => {})
 
 async function startServer() {
   try {

@@ -1,3 +1,8 @@
+/* ---
+    this controller helps to download resume file,
+    it output a pdf file, stored in public directory
+    which then on clientside gets rendered as a blob
+ */
 const fs = require('fs');
 const path = require('path');
 
