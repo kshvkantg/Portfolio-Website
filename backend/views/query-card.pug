@@ -26,4 +26,5 @@ html
                         .bg-white.shadow-md.rounded-lg.p-6
                             h2.text-lg.font-semibold.mb-2= card.subject
                             p.text-gray-600.mb-4= card.message
-                            p.text-gray-600.mb-4= `${card.full_name} ${card.contact}`
+                            .div.mx-auto.flex.justify-between
+                                p.text-gray-600.mb-4= `${card.full_name} ${card.contact}`
