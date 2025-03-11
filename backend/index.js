@@ -12,6 +12,7 @@ const fs = require('fs')
 const queryRouter = require('./Router/app-router')
 
 const connectToDatabase = require('./database/mongo_connection');
+const {renderWentWrongController, render404Controller} = require('./controller/RenderController')
 
 const app = new Koa();
 
@@ -41,6 +42,10 @@ app.use(async (ctx, next) => {
 })
 
 app.use(queryRouter.routes()).use(queryRouter.allowedMethods());
+
+//handel 404 and 500 code renders
+app.use(render404Controller)
+app.use(renderWentWrongController)
 
 const PORT = process.env.PORT || 3000;
 const BASE_URL = process.env.BASE_URL || `http://localhost:${PORT}`;

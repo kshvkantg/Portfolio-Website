@@ -3,19 +3,24 @@ html
     head
         title= title
         script(src="https://cdn.tailwindcss.com")
+        script(src="/js/routin-server.js")
     body
-        .min-h-screen.bg-gray-100.p-6
+        include topbar
+        + topbar()
+
+        .min-h-screen.bg-gray-100.px-6.py-10
             .max-w-4xl.mx-auto
                 h1.text-2xl.font-bold.mb-4.text-center= title
 
-                form(method="get" action="/api/cards" class="flex items-center space-x-4 mb-6")
+                form(method="get" action="/api/query" class="flex items-center space-x-4 space-y-6 mb-6")
                     input.flex-grow.p-2.border.rounded(
                         type="text"
                         name="search"
-                        placeholder="Search..."
+                        placeholder="Subject..."
                         value=searchQuery
                     )
                     button.bg-blue-500.text-white.p-2.rounded(type="submit") Search
+                    button#adminPanel.bg-blue-500.text-white.p-2.rounded() Refresh
 
 
                 .grid(class="grid grid-cols-3 gap-4")

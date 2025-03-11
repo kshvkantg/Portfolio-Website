@@ -2,7 +2,9 @@ const Item = require('../database/model/UserQueryModel');
 
 const getAllItems = async (ctx) => {
     try {
-        const items = await Item.find();
+        const { search } = ctx.request.query;
+        const query = search ? { subject: { $regex: search, $options: "i" } } : {};
+        const items = await Item.find(query);
 
         await ctx.render('query-card.pug', {
             cards: items, // Use filtered or all cards
