@@ -1,14 +1,15 @@
 const Router = require('koa-router');
-const { getAllItems, createItem } = require('../controller/QueryController');
+const { getAllQueries, createANewQuery } = require('../controller/QueryController');
 const { getResume } = require('../controller/ResumeDownloadController');
-const {renderIndexController,renderQueryController} = require('../controller/RenderController');
-const {passport} = require('../Authentication/passport');
+const {renderIndexController,renderQueryController,renderUserLoginController} = require('../controller/RenderController');
+const {authenticateLocalUser,initiatePassportReqController
+    ,handelCallbackController,handelRedirectController} = require('../controller/AuthenticationController');
 
 const router = new Router();
 
 //Query page route
-router.get('/api/query', getAllItems);
-router.post('/api/query', createItem);
+router.get('/api/query', getAllQueries);
+router.post('/api/query', createANewQuery);
 router.get('/query', renderQueryController);
 
 
@@ -18,22 +19,15 @@ router.get('/', renderIndexController);
 
 
 //passport routes
+router.get('/login/user',renderUserLoginController)
 
 // handels initiating req that asks google to send back a
 // token url after inital signupn
-router.get(
-    "/auth/google",
-    passport.authenticate("google", { scope: ["profile", "email"] })
-);
+router.get("/auth/google",initiatePassportReqController);
 
 // calls google callback with token inorder to fetch
 // user queries
-router.get(
-    "/auth/google/callback",
-    passport.authenticate("google", { failureRedirect: "/" }),
-    async (ctx) => {
-        ctx.redirect("/api/query"); // Redirect to Query Page after user login
-    }
-);
+router.get("/auth/google/callback",handelCallbackController,handelRedirectController);
 
+router.post("/login-user",authenticateLocalUser);
 module.exports = router;

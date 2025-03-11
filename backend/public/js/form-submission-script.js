@@ -1,4 +1,6 @@
+import { config } from "./config.js";
 document.addEventListener("DOMContentLoaded", function () {
+
     const popup = document.getElementById("popup");
     const openPopupBtn = document.getElementById("openPopupBtn");
     const closePopup = document.getElementById("closePopup");
@@ -13,6 +15,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const message = document.getElementById("message");
     const subject = document.getElementById("subject");
 
+    const BASE_URL = config.FRONT_APP_BASE_URL
+
+
     function openPopup() {
         popup.classList.remove("hidden");
     }
@@ -25,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
     closePopup.addEventListener("click", closePopupHandler);
 
     submitButton.addEventListener("click",async() =>  callSubmitRequestApi(
-        "http://localhost:3000/api/query",
+        `${BASE_URL}/api/query`,
         {
             full_name : `${fullName.value}`,
             contact : `${contact.value}`,
@@ -36,11 +41,11 @@ document.addEventListener("DOMContentLoaded", function () {
     async function callSubmitRequestApi(endpoint, data = {}) {
         initializeLoadingButtonBehaviour()
         try {
-            const response = await fetch("http://localhost:3000/api/pdf", {
-                method: "GET",
+            const response = await fetch(endpoint, {
+                method: "POST",
                 headers: {
-                    "Content-Type": "application/pdf",
-                },
+                    "Content-Type": "application/json",
+                },body : JSON.stringify(data)
             });
 
             if (!response.ok) {

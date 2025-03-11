@@ -7,6 +7,10 @@ const renderQueryController = async (ctx) => {
     await ctx.render('query-card.pug', { title: 'My Portfolio', message: 'Welcome to my website' });
 };
 
+const renderUserLoginController = async (ctx) => {
+    await ctx.render('user-login.pug', { title: 'My Portfolio', message: 'Welcome to my website' });
+};
+
 const renderWentWrongController = async (ctx) => {
     if (ctx.status === 500) {
         await ctx.render('something-went-wrong.pug', { title: 'My Portfolio', message: 'Welcome to my website' });
@@ -19,4 +23,4 @@ const render404Controller = async (ctx) => {
     }
 };
 
-module.exports = {renderIndexController, renderQueryController, renderWentWrongController, render404Controller};
+module.exports = {renderIndexController, renderQueryController, renderWentWrongController, render404Controller,renderUserLoginController};

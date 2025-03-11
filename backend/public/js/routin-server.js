@@ -1,9 +1,11 @@
+import { config } from "./config.js";
 document.addEventListener("DOMContentLoaded", function () {
 
+    const BASE_URL = config.FRONT_APP_BASE_URL
 
     document.getElementById("adminPanel").addEventListener("click", function () {
         const route = "/api/query";
-        window.location.href = `http://localhost:3000${route}`;
+        window.location.href = `${BASE_URL}${route}`;
     });
 
 
@@ -13,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const resumeButton = document.getElementById("resumeButton");
     resumeButton.addEventListener("click", async () => downloadPdfResume(
-        "http://localhost:3000/api/pdf",
+        `${BASE_URL}/api/pdf`,
         {}
     ));
 

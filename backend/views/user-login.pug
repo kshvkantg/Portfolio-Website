@@ -1,0 +1,21 @@
+doctype html
+html
+    head
+        title Login Page
+        script(src="https://cdn.tailwindcss.com")
+    body(class="flex items-center justify-center h-screen bg-gray-100")
+        .bg-white.p-6.rounded-lg.shadow-lg.w-96
+            h1.text-2xl.font-bold.text-center Login to Your Account
+            p.text-gray-600.text-center Login using social networks
+            .flex.justify-center.space-x-4.my-4
+                button.bg-red-500.text-white.p-2.rounded-full.w-20.h-10 Google
+            p.text-center.text-gray-400 OR
+            form.space-y-4
+                .flex.flex-col
+                    label.text-gray-700 Email
+                    input(type="email" placeholder="Email" class="p-2 border rounded-lg w-full")
+                .flex.flex-col.relative
+                    label.text-gray-700 Password
+                    input(type="password" placeholder="Password" class="p-2 border rounded-lg w-full")
+                    button.absolute.right-3.top-9.text-gray-500(type="button") 👁️
+                button.bg-green-500.text-white.p-3.rounded-lg.w-full Sign In

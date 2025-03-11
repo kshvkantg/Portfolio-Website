@@ -3,7 +3,7 @@ html
     head
         title Search & View Toggle
         script(src="https://cdn.tailwindcss.com" defer=)
-        script(src="https://unpkg.com/alpinejs" defer)
+        script(type="module" src="https://unpkg.com/alpinejs" defer)
     body
         .container.mx-auto.p-6(x-data="{ search: '', view: 'grid', results: [] }", @input.debounce.500="fetchResults")
             .mb-4

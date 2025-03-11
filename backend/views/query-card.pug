@@ -3,16 +3,14 @@ html
     head
         title= title
         script(src="https://cdn.tailwindcss.com")
-        script(src="/js/routin-server.js")
+        script(type="module" src="/js/routin-server.js")
     body
-        include topbar
-        + topbar()
+        div.topbar(class="w-full flex justify-between items-center bg-gray-900 text-white py-4 px-6 shadow-md")
+            a(href="/")#homeClick.action-btn(class="text-lg font-semibold hover:text-gray-300") Portfolio
 
         .min-h-screen.bg-gray-100.px-6.py-10
             .max-w-4xl.mx-auto
-                h1.text-2xl.font-bold.mb-4.text-center= title
-
-                form(method="get" action="/api/query" class="flex items-center space-x-4 space-y-6 mb-6")
+                form(method="get" action="/api/query" class="flex items-center space-x-4 mb-6")
                     input.flex-grow.p-2.border.rounded(
                         type="text"
                         name="search"

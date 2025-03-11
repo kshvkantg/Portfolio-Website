@@ -13,7 +13,7 @@ const getAllQueries = async (ctx) => {
 
         await ctx.render('query-card.pug', {
             cards: items,
-            title: "Card Grid View",
+            title: "Query Panel",
         });
     } catch (error) {
         console.error(error.message);
