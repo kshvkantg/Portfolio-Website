@@ -8,7 +8,7 @@ const path = require('path');
 
 const getResume = async (ctx) => {
     const pdfDirectory = path.join(__dirname, '../public');
-    const filename  = "resume.pdf";
+    const filename  = "Resume-keshav_gupta.pdf";
 
     const filePath = path.join(pdfDirectory, filename);
     console.log(filePath);
